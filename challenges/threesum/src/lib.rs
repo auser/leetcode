@@ -10,33 +10,36 @@ use std::collections::{HashMap, HashSet};
 struct Solution;
 
 impl Solution {
-    pub fn three_sum(nums: Vec<i32>) -> Vec<Vec<i32>> {
-        // There are a few different ways to solve this problem, but let's solve it
-        // using a hashset. At each number, we'll
-        let mut seen_map: HashMap<i32, i32> = HashMap::new();
-        let mut dup_set: HashSet<i32> = HashSet::new();
-        let mut ret: HashSet<Vec<i32>> = HashSet::new();
+    pub fn three_sum(mut nums: Vec<i32>) -> Vec<Vec<i32>> {
+        let mut ret = Vec::new();
+        nums.sort();
 
-        nums.iter().enumerate().for_each(|(i, &n)| {
-            if !dup_set.contains(&n) {
-                dup_set.insert(n);
-                nums[i + 1..].iter().enumerate().for_each(|(j, p)| {
-                    let complement = -n - p; //(n + *p) * -1;
-                    if seen_map.contains_key(&complement)
-                        && seen_map.get(&complement).unwrap().eq(&(i as i32))
-                    {
-                        let mut new_entry = vec![n, *p, complement];
-                        new_entry.sort();
-                        ret.insert(new_entry);
-                    }
-                    seen_map.insert(*p, i as i32);
-                });
+        for i in 0..nums.len() {
+            if i > 0 && nums[i] == nums[i - 1] {
+                continue;
             }
-        });
 
-        let mut res = ret.into_iter().collect::<Vec<Vec<i32>>>();
-        res.sort();
-        return res;
+            let mut left = i + 1;
+            let mut right = nums.len() - 1;
+
+            while left < right {
+                let sum = nums[i] + nums[left] + nums[right];
+                if sum > 0 {
+                    right -= 1;
+                } else if sum < 0 {
+                    left += 1;
+                } else {
+                    ret.push(vec![nums[i], nums[left], nums[right]]);
+                    left += 1;
+
+                    while nums[left] == nums[left - 1] && left < right {
+                        left += 1;
+                    }
+                }
+            }
+        }
+
+        return ret;
     }
 }
 

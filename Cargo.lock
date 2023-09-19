@@ -7,5 +7,9 @@ name = "leetcode"
 version = "0.1.0"
 
 [[package]]
+name = "swap-nodes-in-pairs"
+version = "0.1.0"
+
+[[package]]
 name = "threesum"
 version = "0.1.0"

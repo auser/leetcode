@@ -7,6 +7,10 @@ name = "leetcode"
 version = "0.1.0"
 
 [[package]]
+name = "longest-valid-parentheses"
+version = "0.1.0"
+
+[[package]]
 name = "swap-nodes-in-pairs"
 version = "0.1.0"
 
